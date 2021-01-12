@@ -6,10 +6,12 @@ import android.widget.TextView;
 
 public class Nums extends Operations {
     private int plus, subtraction, multiplication, division;
-    protected double x, y;
-    protected String str;
-    protected Integer xInt, yInt;
-    protected boolean isAct = false;
+    private double x, y;
+    private String str;
+    private Integer xInt, yInt;
+    private boolean isAct = false;
+    private int counter = 0;
+
 
     public String numButton(final boolean isAct, int num) {
         if (isAct) {
@@ -34,6 +36,7 @@ public class Nums extends Operations {
     }
 
     public void operationPlus(){
+        setCounter(0);
         setAct(true);
         setPlus(1);
         setSubtraction(0);
@@ -41,6 +44,7 @@ public class Nums extends Operations {
         setDivision(0);
     }
     public void operationSubtraction(){
+        setCounter(0);
         setAct(true);
         setPlus(0);
         setSubtraction(1);
@@ -48,6 +52,7 @@ public class Nums extends Operations {
         setDivision(0);
     }
     public void operationMultiplication(){
+        setCounter(0);
         setAct(true);
         setPlus(0);
         setSubtraction(0);
@@ -55,6 +60,7 @@ public class Nums extends Operations {
         setDivision(0);
     }
     public void operationDivision(){
+        setCounter(0);
         setAct(true);
         setPlus(0);
         setSubtraction(0);
@@ -63,27 +69,56 @@ public class Nums extends Operations {
     }
     public String operationClearLastSymbol(boolean isAct){
         if(isAct){
-            setY(getY() / 10);
+            setY(getY() - (getY() % 10.0));
+            yInt = (int) getY();
+            str = Integer.toString(yInt);
+        }else{
+            setX((getX() - (getX() % 10.0))/10);
+            xInt = (int) getX();
+            str = Integer.toString(xInt);
+        }
+        setCounter(str.length());
+        return str;
+    }
+    public String operationPercent(boolean isAct){
+        if(isAct){
+            setY(getX() * (getY() / 100.0));
             str = Double.toString(getY());
         }else{
-            setX(getX() / 10);
+            setX(getX() / 100.0);
             str = Double.toString(getX());
+        }
+        setCounter(str.length());
+        if(getCounter() > 9){
+            return str.substring(0, 8);
         }
         return str;
     }
     public String operationPlusMinus(boolean isAct){
         if(isAct){
             setY(-1 * getY());
-            str = Double.toString(getY());
+            if((getX()*10) % 10 == 0){
+                yInt = (int) getY();
+                str = Integer.toString(yInt);
+            }else{
+                str = Double.toString(getY());
+            }
         }else{
             setX(-1 * getX());
-            str = Double.toString(getX());
+            if((getX()*10) % 10 == 0){
+                xInt = (int) getX();
+                str = Integer.toString(xInt);
+            }else{
+                str = Double.toString(getX());
+            }
         }
+        setCounter(str.length());
         return str;
     }
     public String operationClearAll(){
         setX(0);
         setY(0);
+        setCounter(0);
         return "0";
     }
     public String operationEqual(){
@@ -102,6 +137,10 @@ public class Nums extends Operations {
         setAct(false);
         setY(0);
 
+        setCounter(str.length());
+        if(getCounter() > 9){
+            return str.substring(0, 8);
+        }
         return str;
     }
 
@@ -146,6 +185,12 @@ public class Nums extends Operations {
     }
     public void setAct(boolean act) {
         isAct = act;
+    }
+    public int getCounter() {
+        return counter;
+    }
+    public void setCounter(int counter) {
+        this.counter = counter;
     }
 }
 

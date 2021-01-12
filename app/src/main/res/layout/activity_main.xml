@@ -42,11 +42,11 @@
             android:text="+/-" />
 
         <Button
-            android:id="@+id/button_cls"
+            android:id="@+id/button_percent"
             android:background="@drawable/oval_operation_button"
             style="@style/ButtonStyle"
             android:textColor="#EDEDED"
-            android:text="CA" />
+            android:text="%" />
 
         <Button
             android:id="@+id/button_div"

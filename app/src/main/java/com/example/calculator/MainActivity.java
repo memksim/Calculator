@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mButton_multiplication;
     private Button mButton_division;
     private Button mButton_equal;
-    private Button mButton_cls;
+    private Button mButton_percent;
     private Button mButton_clear;
     private Button mButton_comma;//запятая
     private Button mButton_plus_minus;//(+/-)
@@ -51,12 +51,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mCalcTextView = (TextView)findViewById(R.id.action_text_view);
+        mCalcTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationClearLastSymbol(button.getAct()));
+            }
+        });
 
         mButton_0 = (Button)findViewById(R.id.button_0);
         mButton_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.numButton(button.getAct(), 0));
+                if(button.getCounter() < 9){
+                    mCalcTextView.setText(button.numButton(button.getAct(), 0));
+                    button.setCounter(button.getCounter() + 1);
+                }
             }
         });
 
@@ -64,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
         mButton_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.numButton(button.getAct(), 1));
+                if(button.getCounter() < 9){
+                    mCalcTextView.setText(button.numButton(button.getAct(), 1));
+                    button.setCounter(button.getCounter() + 1);
+                }
             }
         });
 
@@ -72,7 +84,10 @@ public class MainActivity extends AppCompatActivity {
         mButton_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.numButton(button.getAct(), 2));
+                if(button.getCounter() < 9){
+                    mCalcTextView.setText(button.numButton(button.getAct(), 2));
+                    button.setCounter(button.getCounter() + 1);
+                }
             }
         });
 
@@ -80,7 +95,10 @@ public class MainActivity extends AppCompatActivity {
         mButton_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.numButton(button.getAct(), 3));
+                if(button.getCounter() < 9){
+                    mCalcTextView.setText(button.numButton(button.getAct(), 3));
+                    button.setCounter(button.getCounter() + 1);
+                }
             }
         });
 
@@ -88,7 +106,10 @@ public class MainActivity extends AppCompatActivity {
         mButton_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.numButton(button.getAct(), 4));
+                if(button.getCounter() < 9){
+                    mCalcTextView.setText(button.numButton(button.getAct(), 4));
+                    button.setCounter(button.getCounter() + 1);
+                }
             }
         });
 
@@ -96,7 +117,10 @@ public class MainActivity extends AppCompatActivity {
         mButton_5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.numButton(button.getAct(), 5));
+                if(button.getCounter() < 9){
+                    mCalcTextView.setText(button.numButton(button.getAct(), 5));
+                    button.setCounter(button.getCounter() + 1);
+                }
             }
         });
 
@@ -104,7 +128,10 @@ public class MainActivity extends AppCompatActivity {
         mButton_6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.numButton(button.getAct(), 6));
+                if(button.getCounter() < 9){
+                    mCalcTextView.setText(button.numButton(button.getAct(), 6));
+                    button.setCounter(button.getCounter() + 1);
+                }
             }
         });
 
@@ -112,7 +139,10 @@ public class MainActivity extends AppCompatActivity {
         mButton_7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.numButton(button.getAct(), 7));
+                if(button.getCounter() < 9){
+                    mCalcTextView.setText(button.numButton(button.getAct(), 7));
+                    button.setCounter(button.getCounter() + 1);
+                }
             }
         });
 
@@ -120,7 +150,10 @@ public class MainActivity extends AppCompatActivity {
         mButton_8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.numButton(button.getAct(), 8));
+                if(button.getCounter() < 9){
+                    mCalcTextView.setText(button.numButton(button.getAct(), 8));
+                    button.setCounter(button.getCounter() + 1);
+                }
             }
         });
 
@@ -128,7 +161,10 @@ public class MainActivity extends AppCompatActivity {
         mButton_9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.numButton(button.getAct(), 9));
+                if(button.getCounter() < 9){
+                    mCalcTextView.setText(button.numButton(button.getAct(), 9));
+                    button.setCounter(button.getCounter() + 1);
+                }
             }
         });
 
@@ -162,13 +198,15 @@ public class MainActivity extends AppCompatActivity {
                 button.operationDivision();
             }
         });
-        mButton_cls = (Button)findViewById(R.id.button_cls);
-        mButton_cls.setOnClickListener(new View.OnClickListener() {
+
+        mButton_percent = (Button)findViewById(R.id.button_percent);
+        mButton_percent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 mCalcTextView.setText(button.operationClearLastSymbol(button.getAct()));
+                mCalcTextView.setText(button.operationPercent(button.getAct()));
             }
         });
+
         mButton_comma = (Button)findViewById(R.id.button_com);
         mButton_comma.setOnClickListener(new View.OnClickListener() {
             @Override
