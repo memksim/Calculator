@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,43 +21,33 @@ public class MainActivity extends AppCompatActivity {
     private Button mButton_7;
     private Button mButton_8;
     private Button mButton_9;
+
     private Button mButton_plus;
     private Button mButton_minus;
     private Button mButton_multiplication;
     private Button mButton_division;
     private Button mButton_equal;
     private Button mButton_percent;
-    private Button mButton_clear;
+
     private Button mButton_comma;//запятая
     private Button mButton_plus_minus;//(+/-)
+    private Button mButton_coup;// 1/x
+    private Button mButton_square;// x^2
+    private Button mButton_root;// sqrt(x)
+
+    private Button mButton_clear_all;
+    private Button mButton_clear_x;
+    private ImageButton mButton_clear_last;
+
 
     private Nums button = new Nums();
-
-    private double x, y;
-    private String str;
-    private Integer xInt, yInt;
-    private boolean isAct = false;
-
-
-
-
-    int plus = 0;
-    int subtraction = 0;
-    int multiplication = 0;
-    int division = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mCalcTextView = (TextView)findViewById(R.id.action_text_view);
-        mCalcTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCalcTextView.setText(button.operationClearLastSymbol(button.getAct()));
-            }
-        });
+        mCalcTextView = (TextView)findViewById(R.id.action_text);
 
         mButton_0 = (Button)findViewById(R.id.button_0);
         mButton_0.setOnClickListener(new View.OnClickListener() {
@@ -199,28 +190,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mButton_percent = (Button)findViewById(R.id.button_percent);
-        mButton_percent.setOnClickListener(new View.OnClickListener() {
+        mButton_equal = (Button)findViewById(R.id.button_equal);
+        mButton_equal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.operationPercent(button.getAct()));
-            }
-        });
-
-        mButton_comma = (Button)findViewById(R.id.button_com);
-        mButton_comma.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
-
-        mButton_clear = (Button)findViewById(R.id.button_C);
-        mButton_clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCalcTextView.setText(button.operationClearAll());
+                mCalcTextView.setText(button.operationEqual());
             }
         });
 
@@ -232,11 +206,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mButton_equal = (Button)findViewById(R.id.button_equal);
-        mButton_equal.setOnClickListener(new View.OnClickListener() {
+        mButton_percent = (Button)findViewById(R.id.button_percent);
+        mButton_percent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCalcTextView.setText(button.operationEqual());
+                mCalcTextView.setText(button.operationPercent(button.getAct()));
+            }
+        });
+
+        mButton_comma = (Button)findViewById(R.id.button_com);
+        mButton_coup = (Button)findViewById(R.id.button_coup);
+        mButton_coup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationCoup(button.getAct()));
+            }
+        });
+
+        mButton_square = (Button)findViewById(R.id.button_square);
+        mButton_square.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationSquare(button.getAct()));
+            }
+        });
+
+        mButton_root = (Button)findViewById(R.id.button_root);
+        mButton_root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationSqrt(button.getAct()));
+            }
+        });
+
+        mButton_clear_last = (ImageButton)findViewById(R.id.button_clear_last);
+        mButton_clear_last.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationClearLastSymbol(button.getAct()));
+            }
+        });
+
+        mButton_clear_x = (Button)findViewById(R.id.button_clear_x);
+        mButton_clear_x.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationClearXorY(button.getAct()));
+            }
+        });
+
+        mButton_clear_all = (Button)findViewById(R.id.button_clear_all);
+        mButton_clear_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationClearAll());
             }
         });
     }

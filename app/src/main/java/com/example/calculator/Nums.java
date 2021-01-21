@@ -3,8 +3,9 @@ package com.example.calculator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import java.lang.Math;
 
-public class Nums extends Operations {
+public class Nums{
     private int plus, subtraction, multiplication, division;
     private double x, y;
     private String str;
@@ -67,19 +68,30 @@ public class Nums extends Operations {
         setMultiplication(0);
         setDivision(1);
     }
-    public String operationClearLastSymbol(boolean isAct){
-        if(isAct){
-            setY(getY() - (getY() % 10.0));
-            yInt = (int) getY();
-            str = Integer.toString(yInt);
-        }else{
-            setX((getX() - (getX() % 10.0))/10);
+
+    public String operationEqual(){
+        if(getPlus() == 1)setX(getX() + getY());
+        if(getSubtraction() == 1)setX(getX() - getY());
+        if(getMultiplication() == 1)setX(getX() * getY());
+        if(getDivision() == 1)setX(getX() / getY());
+
+        if((getX()*10) % 10 == 0){
             xInt = (int) getX();
             str = Integer.toString(xInt);
+        }else{
+            str = Double.toString(getX());
         }
+
+        setAct(false);
+        setY(0);
+
         setCounter(str.length());
+        if(getCounter() > 10 ){
+            str = str.substring(0,10);
+        }
         return str;
     }
+
     public String operationPercent(boolean isAct){
         if(isAct){
             setY(getX() * (getY() / 100.0));
@@ -115,32 +127,144 @@ public class Nums extends Operations {
         setCounter(str.length());
         return str;
     }
+    public String operationCoup(boolean isAct){
+        if (isAct){
+            setY(1/getY());
+            if((getY()*10)%10 == 0){
+                yInt = (int) getY();
+                str = Integer.toString(yInt);
+            }else{
+                str = Double.toString(getY());
+            }
+        }else{
+            setX(1/getX());
+            if((getX()*10)%10 == 0){
+                xInt = (int) getX();
+                str = Integer.toString(xInt);
+            }else{
+                str = Double.toString(getX());
+            }
+        }
+
+        setCounter(str.length());
+        if(getCounter()>9){
+            setCounter(6);
+            str = str.substring(0,7);
+            if(isAct){
+                setY(Double.valueOf(str));
+            }else{
+                setX(Double.valueOf(str));
+            }
+        }
+        return str;
+    }
+    public String operationSquare(boolean isAct){
+        if(isAct){
+            setY(getY()*getY());
+            if((getY()*10)%10 == 0){
+                yInt = (int) getY();
+                str = Integer.toString(yInt);
+            }else{
+                str = Double.toString(getY());
+            }
+        }else{
+            setX(getX()*getX());
+            if((getX()*10)%10 == 0){
+                xInt = (int) getX();
+                str = Integer.toString(xInt);
+            }else{
+                str = Double.toString(getX());
+            }
+        }
+
+        setCounter(str.length());
+        if(getCounter()>9){
+            setCounter(6);
+            str = str.substring(0,7);
+            if(isAct){
+                setY(Double.valueOf(str));
+            }else{
+                setX(Double.valueOf(str));
+            }
+        }
+
+
+        return str;
+    }
+    public String operationSqrt(boolean isAct){
+        if(isAct){
+            setY(Math.sqrt(getY()));
+            if((getY()*10)%10 == 0){
+                yInt = (int) getY();
+                str = Integer.toString(yInt);
+            }else{
+                str = Double.toString(getY());
+            }
+        }else{
+            setX(Math.sqrt(getX()));
+            if((getX()*10) % 10 == 0){
+                xInt = (int) getX();
+                str = Integer.toString(xInt);
+            }else{
+                str = Double.toString(getX());
+            }
+        }
+
+        setCounter(str.length());
+        if(getCounter()>9){
+            setCounter(6);
+            str = str.substring(0,7);
+            if(isAct){
+                setY(Double.valueOf(str));
+            }else{
+                setX(Double.valueOf(str));
+            }
+        }
+
+        return str;
+    }
+
+    public String operationClearXorY(boolean isAct){
+        if(isAct){
+            setY(0);
+            yInt = (int) getY();
+            str = Integer.toString(yInt);
+        }else{
+            setX(0);
+            xInt = (int) getX();
+            str = Integer.toString(xInt);
+        }
+
+        return str;
+    }
     public String operationClearAll(){
         setX(0);
         setY(0);
         setCounter(0);
         return "0";
     }
-    public String operationEqual(){
-        if(getPlus() == 1)setX(getX() + getY());
-        if(getSubtraction() == 1)setX(getX() - getY());
-        if(getMultiplication() == 1)setX(getX() * getY());
-        if(getDivision() == 1)setX(getX() / getY());
-
-        if((getX()*10) % 10 == 0){
-            xInt = (int) getX();
-            str = Integer.toString(xInt);
+    public String operationClearLastSymbol(boolean isAct){
+        if(isAct){
+            str = Double.toString(getY()).substring(0,str.length()-1);
+            setY(Double.valueOf(str));
+            if((getY()*10) % 10 == 0){
+                yInt = (int) getY();
+                str = Integer.toString(yInt);
+            }else{
+                str = Double.toString(getY());
+            }
         }else{
-            str = Double.toString(getX());
+            str = Double.toString(getX()).substring(0,str.length()-1);
+            setX(Double.valueOf(str));
+            if((getX()*10) % 10 == 0){
+                xInt = (int) getX();
+                str = Integer.toString(xInt);
+            }else{
+                str = Double.toString(getX());
+            }
         }
-
-        setAct(false);
-        setY(0);
 
         setCounter(str.length());
-        if(getCounter() > 9){
-            return str.substring(0, 8);
-        }
         return str;
     }
 
