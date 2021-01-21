@@ -22,6 +22,8 @@
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="0dp" />
 
+
+
     <LinearLayout
         android:id="@+id/LinearLayout_level_6"
         android:layout_width="match_parent"
@@ -55,9 +57,9 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent" />
-        <ImageButton
+        <Button
             android:id="@+id/button_clear_last"
-            android:src="@drawable/s"
+            android:text="@string/clear_last_symbol"
             android:background="@drawable/operation_button"
             style="@style/Button_style"
             android:layout_width="0dp"

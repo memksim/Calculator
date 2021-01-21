@@ -6,4 +6,6 @@
     <string name="sqrt">√x</string>
     <string name="clear_last_symbol">←</string>
     <string name="square">x²</string>
+    <string name="x_in_y">xʸ</string>
+
 </resources>

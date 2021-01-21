@@ -34,10 +34,17 @@ public class MainActivity extends AppCompatActivity {
     private Button mButton_coup;// 1/x
     private Button mButton_square;// x^2
     private Button mButton_root;// sqrt(x)
+    private Button mButton_fact;//factorial
+    private Button mButton_xIny;//x^y
+
+    private Button mButton_sin;
+    private Button mButton_cos;
+    private Button mButton_tan;
+    private Button mButton_cot;
 
     private Button mButton_clear_all;
     private Button mButton_clear_x;
-    private ImageButton mButton_clear_last;
+    private Button mButton_clear_last;
 
 
     private Nums button = new Nums();
@@ -239,7 +246,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mButton_clear_last = (ImageButton)findViewById(R.id.button_clear_last);
+        mButton_xIny = (Button)findViewById(R.id.button_x_in_y);
+        mButton_fact = (Button)findViewById(R.id.button_fact);
+
+        mButton_sin = (Button)findViewById(R.id.button_sin);
+        mButton_cos = (Button)findViewById(R.id.button_cos);
+        mButton_tan = (Button)findViewById(R.id.button_tan);
+        mButton_cot = (Button)findViewById(R.id.button_cot);
+
+        mButton_clear_last = (Button)findViewById(R.id.button_clear_last);
         mButton_clear_last.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

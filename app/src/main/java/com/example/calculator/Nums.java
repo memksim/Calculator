@@ -245,23 +245,27 @@ public class Nums{
     }
     public String operationClearLastSymbol(boolean isAct){
         if(isAct){
-            str = Double.toString(getY()).substring(0,str.length()-1);
+
+            str = Double.toString(getY()).substring(0, str.length() - 1);
             setY(Double.valueOf(str));
-            if((getY()*10) % 10 == 0){
+            if ((getY() * 10) % 10 == 0) {
                 yInt = (int) getY();
                 str = Integer.toString(yInt);
-            }else{
+            } else {
                 str = Double.toString(getY());
             }
+
         }else{
-            str = Double.toString(getX()).substring(0,str.length()-1);
+            str = Double.toString(getX()).substring(0, str.length() - 1);
             setX(Double.valueOf(str));
-            if((getX()*10) % 10 == 0){
+            if ((getX() * 10) % 10 == 0) {
                 xInt = (int) getX();
                 str = Integer.toString(xInt);
-            }else{
+            } else {
                 str = Double.toString(getX());
             }
+
+
         }
 
         setCounter(str.length());
