@@ -11,12 +11,17 @@ public class Nums{
     private double y = 0;
     private String str;
     private Integer xInt, yInt;
-
+    private int num = 0;
     private boolean isAct = false;
     private int counter = 0;
 
 
-    public String numButton(final boolean isAct, int num) {
+    //для запятой
+    private double z;
+    private boolean isCom = false;
+    int last = 0;
+
+    public String numButton(final boolean isAct, int num, final boolean isCom) {
         if (isAct) {
             setY(10 * getY() + num);
             if ((getY() * 10) % 10 == 0) {
@@ -33,8 +38,20 @@ public class Nums{
             } else {
                 str = Double.toString(getX());
             }
-
         }
+
+        if(isCom){
+            if(isAct){
+                last = (int) getY() % 10;
+                setZ(getZ() + (last / Math.pow(10, str.length())));
+                str = Double.toString(getZ());
+            }else {
+                last = (int) getX() % 10;
+                setZ(getZ() + (last / Math.pow(10, str.length())));
+                str = Double.toString(getZ());
+            }
+        }
+
         return str;
     }
 
@@ -58,6 +75,9 @@ public class Nums{
     }
 
     public void operationPlus(){
+        if(isCom){
+            setX(getZ());
+        }
         setCounter(0);
         setAct(true);
         setPlus(1);
@@ -65,8 +85,12 @@ public class Nums{
         setMultiplication(0);
         setDivision(0);
         setxInY(0);
+        setCom(false);
     }
     public void operationSubtraction(){
+        if(isCom){
+            setX(getZ());
+        }
         setCounter(0);
         setAct(true);
         setPlus(0);
@@ -74,8 +98,12 @@ public class Nums{
         setMultiplication(0);
         setDivision(0);
         setxInY(0);
+        setCom(false);
     }
     public void operationMultiplication(){
+        if(isCom){
+            setX(getZ());
+        }
         setCounter(0);
         setAct(true);
         setPlus(0);
@@ -83,8 +111,12 @@ public class Nums{
         setMultiplication(1);
         setDivision(0);
         setxInY(0);
+        setCom(false);
     }
     public void operationDivision(){
+        if(isCom){
+            setX(getZ());
+        }
         setCounter(0);
         setAct(true);
         setPlus(0);
@@ -92,9 +124,16 @@ public class Nums{
         setMultiplication(0);
         setDivision(1);
         setxInY(0);
+        setCom(false);
     }
 
     public String operationEqual(){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
         if(getPlus() == 1)setX(getX() + getY());
         if(getSubtraction() == 1)setX(getX() - getY());
         if(getMultiplication() == 1)setX(getX() * getY());
@@ -108,6 +147,7 @@ public class Nums{
             str = Double.toString(getX());
         }
 
+        setCom(false);
         setAct(false);
         setY(0);
 
@@ -119,6 +159,13 @@ public class Nums{
     }
 
     public String operationPercent(boolean isAct){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
+
         if(isAct){
             setY(getX() * (getY() / 100.0));
             str = Double.toString(getY());
@@ -133,6 +180,13 @@ public class Nums{
         return str;
     }
     public String operationPlusMinus(boolean isAct){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
+
         if(isAct){
             setY(-1 * getY());
             if((getX()*10) % 10 == 0){
@@ -154,6 +208,13 @@ public class Nums{
         return str;
     }
     public String operationCoup(boolean isAct){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
+
         if (isAct){
             setY(1/getY());
             if((getY()*10)%10 == 0){
@@ -185,6 +246,13 @@ public class Nums{
         return str;
     }
     public String operationSquare(boolean isAct){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
+
         if(isAct){
             setY(getY()*getY());
             if((getY()*10)%10 == 0){
@@ -218,6 +286,13 @@ public class Nums{
         return str;
     }
     public String operationSqrt(boolean isAct){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
+
         if(isAct){
             setY(Math.sqrt(getY()));
             if((getY()*10)%10 == 0){
@@ -267,9 +342,23 @@ public class Nums{
         setX(0);
         setY(0);
         setCounter(0);
+        setxInY(0);
+        setCom(false);
+        setPlus(0);
+        setSubtraction(0);
+        setMultiplication(0);
+        setDivision(0);
+        setZ(0);
+        setAct(false);
         return "0";
     }
     public String operationClearLastSymbol(boolean isAct){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
         if(isAct){
 
             str = Double.toString(getY()).substring(0, str.length() - 1);
@@ -299,6 +388,12 @@ public class Nums{
     }
 
     public String operationFact(boolean isAct){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
         double fact = 1;
         if(isAct){
             for(int i = 2; i < getY() + 1; i++){
@@ -328,6 +423,9 @@ public class Nums{
         return str;
     }
     public String operationXInY(){
+        if(isCom){
+            setX(getZ());
+        }
         setCounter(0);
         setAct(true);
         setPlus(0);
@@ -335,10 +433,18 @@ public class Nums{
         setMultiplication(0);
         setDivision(0);
         setxInY(1);
+        setCom(false);
 
         return str;
     }
+
     public String operationSin(boolean isAct){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
         if(isAct) {
             setY(Math.sin(Math.toRadians(getY())));
             str = Double.toString(getY());
@@ -350,6 +456,12 @@ public class Nums{
         return str;
     }
     public String operationCos(boolean isAct){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
         if(isAct) {
             setY(Math.cos(Math.toRadians(getY())));
             str = Double.toString(getY());
@@ -360,6 +472,12 @@ public class Nums{
         return str;
     }
     public String operationTan(boolean isAct){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
         if(isAct) {
             setY(Math.tan(Math.toRadians(getY())));
             str = Double.toString(getY());
@@ -370,6 +488,12 @@ public class Nums{
         return str;
     }
     public String operationCot(boolean isAct){
+        if(isCom){
+            if (isAct){
+                setY(getZ());
+            }else
+                setX(getZ());
+        }
         if(isAct) {
             setY(1/Math.tan(Math.toRadians(getY())));
             str = Double.toString(getY());
@@ -378,6 +502,17 @@ public class Nums{
             str = Double.toString(getX());
         }
         return str;
+    }
+
+    public void operationComma(boolean isAct){
+        if(isAct){
+            setZ(getY());
+            setY(0);
+        }else{
+            setZ(getX());
+            setX(0);
+        }
+        setCom(true);
     }
 
     public void setX(double x) {
@@ -433,6 +568,18 @@ public class Nums{
     }
     public void setxInY(int xInY) {
         this.xInY = xInY;
+    }
+    public double getZ() {
+        return z;
+    }
+    public void setZ(double z) {
+        this.z = z;
+    }
+    public boolean isCom() {
+        return isCom;
+    }
+    public void setCom(boolean com) {
+        isCom = com;
     }
 }
 

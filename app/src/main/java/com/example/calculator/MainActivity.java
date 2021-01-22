@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             button.setMultiplication(savedInstanceState.getInt("Multiplication", 0));
             button.setDivision(savedInstanceState.getInt("Division", 0));
             button.setCounter(savedInstanceState.getInt("Counter", 0));
+            button.setCom(savedInstanceState.getBoolean("isCom", false));
+            button.setZ(savedInstanceState.getDouble("z", 0));
         }
 
         mCalcTextView = (TextView)findViewById(R.id.action_text);
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button.getCounter() < 9){
-                    mCalcTextView.setText(button.numButton(button.getAct(), 0));
+                    mCalcTextView.setText(button.numButton(button.getAct(), 0, button.isCom()));
                     button.setCounter(button.getCounter() + 1);
                 }
             }
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button.getCounter() < 9){
-                    mCalcTextView.setText(button.numButton(button.getAct(), 1));
+                    mCalcTextView.setText(button.numButton(button.getAct(), 1, button.isCom()));
                     button.setCounter(button.getCounter() + 1);
                 }
             }
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button.getCounter() < 9){
-                    mCalcTextView.setText(button.numButton(button.getAct(), 2));
+                    mCalcTextView.setText(button.numButton(button.getAct(), 2, button.isCom()));
                     button.setCounter(button.getCounter() + 1);
                 }
             }
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button.getCounter() < 9){
-                    mCalcTextView.setText(button.numButton(button.getAct(), 3));
+                    mCalcTextView.setText(button.numButton(button.getAct(), 3, button.isCom()));
                     button.setCounter(button.getCounter() + 1);
                 }
             }
@@ -119,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button.getCounter() < 9){
-                    mCalcTextView.setText(button.numButton(button.getAct(), 4));
+                    mCalcTextView.setText(button.numButton(button.getAct(), 4, button.isCom()));
                     button.setCounter(button.getCounter() + 1);
                 }
             }
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button.getCounter() < 9){
-                    mCalcTextView.setText(button.numButton(button.getAct(), 5));
+                    mCalcTextView.setText(button.numButton(button.getAct(), 5, button.isCom()));
                     button.setCounter(button.getCounter() + 1);
                 }
             }
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button.getCounter() < 9){
-                    mCalcTextView.setText(button.numButton(button.getAct(), 6));
+                    mCalcTextView.setText(button.numButton(button.getAct(), 6, button.isCom()));
                     button.setCounter(button.getCounter() + 1);
                 }
             }
@@ -152,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button.getCounter() < 9){
-                    mCalcTextView.setText(button.numButton(button.getAct(), 7));
+                    mCalcTextView.setText(button.numButton(button.getAct(), 7, button.isCom()));
                     button.setCounter(button.getCounter() + 1);
                 }
             }
@@ -163,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button.getCounter() < 9){
-                    mCalcTextView.setText(button.numButton(button.getAct(), 8));
+                    mCalcTextView.setText(button.numButton(button.getAct(), 8, button.isCom()));
                     button.setCounter(button.getCounter() + 1);
                 }
             }
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button.getCounter() < 9){
-                    mCalcTextView.setText(button.numButton(button.getAct(), 9));
+                    mCalcTextView.setText(button.numButton(button.getAct(), 9, button.isCom()));
                     button.setCounter(button.getCounter() + 1);
                 }
             }
@@ -236,6 +238,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mButton_comma = (Button)findViewById(R.id.button_com);
+        mButton_comma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                button.operationComma(button.getAct());
+            }
+        });
+
         mButton_coup = (Button)findViewById(R.id.button_coup);
         mButton_coup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -345,5 +354,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putInt("Multiplication", button.getMultiplication());
         outState.putInt("Division", button.getDivision());
         outState.putInt("Counter", button.getCounter());
+        outState.putBoolean("isCom", button.isCom());
+        outState.putDouble("z", button.getZ());
     }
 }
