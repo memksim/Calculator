@@ -261,12 +261,53 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mButton_xIny = (Button)findViewById(R.id.button_x_in_y);
+        mButton_xIny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationXInY());
+            }
+        });
+
         mButton_fact = (Button)findViewById(R.id.button_fact);
+        mButton_fact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationFact(button.getAct()));
+            }
+        });
+
 
         mButton_sin = (Button)findViewById(R.id.button_sin);
+        mButton_sin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationSin(button.getAct()));
+            }
+        });
+
         mButton_cos = (Button)findViewById(R.id.button_cos);
+        mButton_cos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationCos(button.getAct()));
+            }
+        });
+
         mButton_tan = (Button)findViewById(R.id.button_tan);
+        mButton_tan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationTan(button.getAct()));
+            }
+        });
+
         mButton_cot = (Button)findViewById(R.id.button_cot);
+        mButton_cot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalcTextView.setText(button.operationCot(button.getAct()));
+            }
+        });
 
         mButton_clear_last = (Button)findViewById(R.id.button_clear_last);
         mButton_clear_last.setOnClickListener(new View.OnClickListener() {

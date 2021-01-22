@@ -6,11 +6,12 @@ import android.widget.TextView;
 import java.lang.Math;
 
 public class Nums{
-    private int plus, subtraction, multiplication, division;
+    private int plus, subtraction, multiplication, division, xInY;
     private double x = 0;
     private double y = 0;
     private String str;
     private Integer xInt, yInt;
+
     private boolean isAct = false;
     private int counter = 0;
 
@@ -63,6 +64,7 @@ public class Nums{
         setSubtraction(0);
         setMultiplication(0);
         setDivision(0);
+        setxInY(0);
     }
     public void operationSubtraction(){
         setCounter(0);
@@ -71,6 +73,7 @@ public class Nums{
         setSubtraction(1);
         setMultiplication(0);
         setDivision(0);
+        setxInY(0);
     }
     public void operationMultiplication(){
         setCounter(0);
@@ -79,6 +82,7 @@ public class Nums{
         setSubtraction(0);
         setMultiplication(1);
         setDivision(0);
+        setxInY(0);
     }
     public void operationDivision(){
         setCounter(0);
@@ -87,6 +91,7 @@ public class Nums{
         setSubtraction(0);
         setMultiplication(0);
         setDivision(1);
+        setxInY(0);
     }
 
     public String operationEqual(){
@@ -94,6 +99,7 @@ public class Nums{
         if(getSubtraction() == 1)setX(getX() - getY());
         if(getMultiplication() == 1)setX(getX() * getY());
         if(getDivision() == 1)setX(getX() / getY());
+        if(getxInY() == 1)setX(Math.pow(getX(), getY()));
 
         if((getX()*10) % 10 == 0){
             xInt = (int) getX();
@@ -292,6 +298,88 @@ public class Nums{
         return str;
     }
 
+    public String operationFact(boolean isAct){
+        double fact = 1;
+        if(isAct){
+            for(int i = 2; i < getY() + 1; i++){
+                fact *= i;
+            }
+
+            setY(fact);
+
+            if((fact * 10)%10 == 0){
+                yInt = (int) getY();
+                str = Integer.toString(yInt);
+            }else
+                str = Double.toString(getY());
+        }else{
+            for(int i = 2; i < getX() + 1; i++){
+                fact *= i;
+            }
+
+            setX(fact);
+
+            if((fact * 10)%10 == 0){
+                xInt = (int) getX();
+                str = Integer.toString(xInt);
+            }else
+                str = Double.toString(getX());
+        }
+        return str;
+    }
+    public String operationXInY(){
+        setCounter(0);
+        setAct(true);
+        setPlus(0);
+        setSubtraction(0);
+        setMultiplication(0);
+        setDivision(0);
+        setxInY(1);
+
+        return str;
+    }
+    public String operationSin(boolean isAct){
+        if(isAct) {
+            setY(Math.sin(Math.toRadians(getY())));
+            str = Double.toString(getY());
+        }else{
+            setX(Math.sin(Math.toRadians(getX())));
+            str = Double.toString(getX());
+        }
+
+        return str;
+    }
+    public String operationCos(boolean isAct){
+        if(isAct) {
+            setY(Math.cos(Math.toRadians(getY())));
+            str = Double.toString(getY());
+        }else{
+            setX(Math.cos(Math.toRadians(getX())));
+            str = Double.toString(getX());
+        }
+        return str;
+    }
+    public String operationTan(boolean isAct){
+        if(isAct) {
+            setY(Math.tan(Math.toRadians(getY())));
+            str = Double.toString(getY());
+        }else{
+            setX(Math.tan(Math.toRadians(getX())));
+            str = Double.toString(getX());
+        }
+        return str;
+    }
+    public String operationCot(boolean isAct){
+        if(isAct) {
+            setY(1/Math.tan(Math.toRadians(getY())));
+            str = Double.toString(getY());
+        }else{
+            setX(1/Math.tan(Math.toRadians(getX())));
+            str = Double.toString(getX());
+        }
+        return str;
+    }
+
     public void setX(double x) {
         this.x = x;
     }
@@ -339,6 +427,12 @@ public class Nums{
     }
     public void setCounter(int counter) {
         this.counter = counter;
+    }
+    public int getxInY() {
+        return xInY;
+    }
+    public void setxInY(int xInY) {
+        this.xInY = xInY;
     }
 }
 
