@@ -7,7 +7,8 @@ import java.lang.Math;
 
 public class Nums{
     private int plus, subtraction, multiplication, division;
-    private double x, y;
+    private double x = 0;
+    private double y = 0;
     private String str;
     private Integer xInt, yInt;
     private boolean isAct = false;
@@ -32,6 +33,25 @@ public class Nums{
                 str = Double.toString(getX());
             }
 
+        }
+        return str;
+    }
+
+    public String print(boolean isAct){
+        if(isAct){
+            if((getY() * 10) % 10 == 0){
+                yInt = (int) getY();
+                str = Integer.toString(yInt);
+            }else{
+                str = Double.toString(getY());
+            }
+        }else{
+            if((getY() * 10) % 10 == 0){
+                xInt = (int) getX();
+                str = Integer.toString(xInt);
+            }else{
+                str = Double.toString(getX());
+            }
         }
         return str;
     }

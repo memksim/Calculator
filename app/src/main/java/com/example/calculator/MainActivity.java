@@ -1,5 +1,6 @@
 package com.example.calculator;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -54,7 +55,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(savedInstanceState != null) {
+            button.setX(savedInstanceState.getDouble("x", 0.0));
+            button.setAct(savedInstanceState.getBoolean("isAct", false));
+            button.setY(savedInstanceState.getDouble("y", 0.0));
+            button.setPlus(savedInstanceState.getInt("Plus", 0));
+            button.setSubtraction(savedInstanceState.getInt("Minus", 0));
+            button.setMultiplication(savedInstanceState.getInt("Multiplication", 0));
+            button.setDivision(savedInstanceState.getInt("Division", 0));
+            button.setCounter(savedInstanceState.getInt("Counter", 0));
+        }
+
         mCalcTextView = (TextView)findViewById(R.id.action_text);
+        mCalcTextView.setText(button.print(button.getAct()));
+
 
         mButton_0 = (Button)findViewById(R.id.button_0);
         mButton_0.setOnClickListener(new View.OnClickListener() {
@@ -277,5 +291,18 @@ public class MainActivity extends AppCompatActivity {
                 mCalcTextView.setText(button.operationClearAll());
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putDouble("x", button.getX());
+        outState.putDouble("y", button.getY());
+        outState.putBoolean("isAct", button.getAct());
+        outState.putInt("Plus", button.getPlus());
+        outState.putInt("Minus", button.getSubtraction());
+        outState.putInt("Multiplication", button.getMultiplication());
+        outState.putInt("Division", button.getDivision());
+        outState.putInt("Counter", button.getCounter());
     }
 }
