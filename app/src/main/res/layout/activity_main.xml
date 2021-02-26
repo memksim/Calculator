@@ -11,10 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/action_text"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/button_fact"
@@ -95,22 +93,24 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent" />
-        <Button
-            android:id="@+id/button_clear_x"
-            android:text="C"
-            android:background="@drawable/operation_button"
-            style="@style/Button_style"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent" />
-        <Button
+
+        <ImageButton
             android:id="@+id/button_clear_last"
-            android:text="@string/clear_last_symbol"
             android:background="@drawable/operation_button"
             style="@style/Button_style"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:src="@drawable/clear_last"/>
+
+        <ImageButton
+            android:id="@+id/button_history"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/history"
+            android:background="@drawable/equal_button"
+            style="@style/Button_style"/>
     </LinearLayout>
 
     <LinearLayout

@@ -3,6 +3,7 @@ package com.example.calculator;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -44,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
     private Button mButton_cot;
 
     private Button mButton_clear_all;
-    private Button mButton_clear_x;
-    private Button mButton_clear_last;
+    private ImageButton mButton_clear_last;
 
+    private ImageButton mButton_show_history;
 
     private Nums button = new Nums();
 
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         if(savedInstanceState != null) {
             button.setX(savedInstanceState.getDouble("x", 0.0));
@@ -67,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
             button.setCom(savedInstanceState.getBoolean("isCom", false));
             button.setZ(savedInstanceState.getDouble("z", 0));
         }
+
+        mButton_show_history = (ImageButton)findViewById(R.id.button_history);
+        mButton_show_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
         mCalcTextView = (TextView)findViewById(R.id.action_text);
         mCalcTextView.setText(button.print(button.getAct()));
@@ -318,19 +330,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mButton_clear_last = (Button)findViewById(R.id.button_clear_last);
+        mButton_clear_last = (ImageButton)findViewById(R.id.button_clear_last);
         mButton_clear_last.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCalcTextView.setText(button.operationClearLastSymbol(button.getAct()));
-            }
-        });
-
-        mButton_clear_x = (Button)findViewById(R.id.button_clear_x);
-        mButton_clear_x.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCalcTextView.setText(button.operationClearXorY(button.getAct()));
             }
         });
 

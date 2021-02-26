@@ -1,12 +1,9 @@
 package com.example.calculator;
 
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import java.lang.Math;
 
 public class Nums{
-    private int plus, subtraction, multiplication, division, xInY;
+    private int plus, subtraction, multiplication, division, xInY ,sin;
     private double x = 0;
     private double y = 0;
     private String str;
@@ -15,11 +12,14 @@ public class Nums{
     private boolean isAct = false;
     private int counter = 0;
 
-
     //для запятой
     private double z;
     private boolean isCom = false;
-    int last = 0;
+    private int last = 0;
+
+    //для отображения функций в истории
+    private String function = "-";
+    private boolean isX = true;
 
     public String numButton(final boolean isAct, int num, final boolean isCom) {
         if (isAct) {
@@ -128,17 +128,52 @@ public class Nums{
     }
 
     public String operationEqual(){
+        HistoryItem historyItem = new HistoryItem();
         if(isCom){
             if (isAct){
                 setY(getZ());
             }else
                 setX(getZ());
         }
-        if(getPlus() == 1)setX(getX() + getY());
-        if(getSubtraction() == 1)setX(getX() - getY());
-        if(getMultiplication() == 1)setX(getX() * getY());
-        if(getDivision() == 1)setX(getX() / getY());
-        if(getxInY() == 1)setX(Math.pow(getX(), getY()));
+
+        if(getPlus() == 1){
+            if(!function.equals("-")){
+                historyItem.setAction(getX(), "+", getY(), function, isX);
+            }else {
+                historyItem.setAction(getX(), "+", getY(), function, isX);
+            }
+            setX(getX() + getY());
+        }
+        if(getSubtraction() == 1){
+            if(!function.equals("-")){
+                historyItem.setAction(getX(), "-", getY(), function, isX);
+            }else {
+                historyItem.setAction(getX(), "-", getY(), function, isX);
+            }
+            setX(getX() - getY());
+        }
+        if(getMultiplication() == 1){
+            if(!function.equals("-")){
+                historyItem.setAction(getX(), "*", getY(), function, isX);
+            }else {
+                historyItem.setAction(getX(), "*", getY(), function, isX);            }
+            setX(getX() * getY());
+        }
+        if(getDivision() == 1){
+            if(!function.equals("-")){
+                historyItem.setAction(getX(), "/", getY(), function, isX);
+            }else {
+                historyItem.setAction(getX(), "/", getY(), function, isX);            }
+            setX(getX() / getY());
+        }
+        if(getxInY() == 1){
+            if(!function.equals("-")){
+                historyItem.setAction(getX(), "^", getY(), function, isX);
+            }else {
+                historyItem.setAction(getX(), "^", getY(), function, isX);            }
+            setX(Math.pow(getX(), getY()));
+        }
+
 
         if((getX()*10) % 10 == 0){
             xInt = (int) getX();
@@ -147,6 +182,8 @@ public class Nums{
             str = Double.toString(getX());
         }
 
+        isX = true;
+        function = "-";
         setCom(false);
         setAct(false);
         setY(0);
@@ -155,6 +192,9 @@ public class Nums{
         if(getCounter() > 10 ){
             str = str.substring(0,10);
         }
+
+        historyItem.setResult(String.valueOf(getX()));
+        setHistoryItem(historyItem);
         return str;
     }
 
@@ -325,19 +365,7 @@ public class Nums{
         return str;
     }
 
-    public String operationClearXorY(boolean isAct){
-        if(isAct){
-            setY(0);
-            yInt = (int) getY();
-            str = Integer.toString(yInt);
-        }else{
-            setX(0);
-            xInt = (int) getX();
-            str = Integer.toString(xInt);
-        }
 
-        return str;
-    }
     public String operationClearAll(){
         setX(0);
         setY(0);
@@ -396,6 +424,7 @@ public class Nums{
         }
         double fact = 1;
         if(isAct){
+            function = "fact";
             for(int i = 2; i < getY() + 1; i++){
                 fact *= i;
             }
@@ -407,7 +436,9 @@ public class Nums{
                 str = Integer.toString(yInt);
             }else
                 str = Double.toString(getY());
+            isX = false;
         }else{
+            function = "fact";
             for(int i = 2; i < getX() + 1; i++){
                 fact *= i;
             }
@@ -419,6 +450,7 @@ public class Nums{
                 str = Integer.toString(xInt);
             }else
                 str = Double.toString(getX());
+            isX = true;
         }
         return str;
     }
@@ -446,13 +478,16 @@ public class Nums{
                 setX(getZ());
         }
         if(isAct) {
+            function = "sin";
             setY(Math.sin(Math.toRadians(getY())));
             str = Double.toString(getY());
+            isX = false;
         }else{
+            function = "sin";
             setX(Math.sin(Math.toRadians(getX())));
             str = Double.toString(getX());
+            isX = true;
         }
-
         return str;
     }
     public String operationCos(boolean isAct){
@@ -463,11 +498,15 @@ public class Nums{
                 setX(getZ());
         }
         if(isAct) {
+            function = "cos";
             setY(Math.cos(Math.toRadians(getY())));
             str = Double.toString(getY());
+            isX = false;
         }else{
+            function = "cos";
             setX(Math.cos(Math.toRadians(getX())));
             str = Double.toString(getX());
+            isX = true;
         }
         return str;
     }
@@ -479,11 +518,15 @@ public class Nums{
                 setX(getZ());
         }
         if(isAct) {
+            function = "tan";
             setY(Math.tan(Math.toRadians(getY())));
             str = Double.toString(getY());
+            isX = false;
         }else{
+            function = "tan";
             setX(Math.tan(Math.toRadians(getX())));
             str = Double.toString(getX());
+            isX = true;
         }
         return str;
     }
@@ -495,11 +538,15 @@ public class Nums{
                 setX(getZ());
         }
         if(isAct) {
+            function = "cot";
             setY(1/Math.tan(Math.toRadians(getY())));
             str = Double.toString(getY());
+            isX = false;
         }else{
+            function = "cot";
             setX(1/Math.tan(Math.toRadians(getX())));
             str = Double.toString(getX());
+            isX = true;
         }
         return str;
     }
@@ -580,6 +627,12 @@ public class Nums{
     }
     public void setCom(boolean com) {
         isCom = com;
+    }
+
+    public void setHistoryItem(HistoryItem historyItem){
+        if(getX() != 0 && getY() != 0){
+            Operations.get().setItem(historyItem);
+        }
     }
 }
 

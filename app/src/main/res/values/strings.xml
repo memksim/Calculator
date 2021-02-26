@@ -7,5 +7,6 @@
     <string name="clear_last_symbol">←</string>
     <string name="square">x²</string>
     <string name="x_in_y">xʸ</string>
+    <string name="title_activity_history">HistoryActivity</string>
 
 </resources>
