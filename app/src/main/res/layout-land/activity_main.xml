@@ -71,7 +71,7 @@
             android:layout_weight="1"
             android:src="@drawable/history"
             android:background="@drawable/equal_button"
-            style="@style/Button_style"/>
+            style="@style/Button_style" />
 
     </LinearLayout>
 

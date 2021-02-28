@@ -129,6 +129,7 @@ public class Nums{
 
     public String operationEqual(){
         HistoryItem historyItem = new HistoryItem();
+
         if(isCom){
             if (isAct){
                 setY(getZ());
@@ -145,11 +146,7 @@ public class Nums{
             setX(getX() + getY());
         }
         if(getSubtraction() == 1){
-            if(!function.equals("-")){
-                historyItem.setAction(getX(), "-", getY(), function, isX);
-            }else {
-                historyItem.setAction(getX(), "-", getY(), function, isX);
-            }
+            historyItem.setAction(getX(), "-", getY(), function, isX);
             setX(getX() - getY());
         }
         if(getMultiplication() == 1){
@@ -174,6 +171,12 @@ public class Nums{
             setX(Math.pow(getX(), getY()));
         }
 
+        //эта проверка нужна потому что присваивание action происходит только в операциях,
+        //но если операции нет то и нет присваивания
+        if(getPlus() == 0 && getSubtraction() == 0 && getMultiplication() == 0 && getDivision() == 0 && getxInY() == 0){
+            historyItem.setAction(getX(), "", getY(), function, isX);
+        }
+
 
         if((getX()*10) % 10 == 0){
             xInt = (int) getX();
@@ -182,8 +185,8 @@ public class Nums{
             str = Double.toString(getX());
         }
 
-        isX = true;
         function = "-";
+        isX = true;
         setCom(false);
         setAct(false);
         setY(0);
@@ -194,7 +197,7 @@ public class Nums{
         }
 
         historyItem.setResult(String.valueOf(getX()));
-        setHistoryItem(historyItem);
+        Operations.get().setItem(historyItem);
         return str;
     }
 
@@ -424,34 +427,21 @@ public class Nums{
         }
         double fact = 1;
         if(isAct){
-            function = "fact";
+            function = "fact(" + getY() + ")";
             for(int i = 2; i < getY() + 1; i++){
                 fact *= i;
             }
-
             setY(fact);
-
-            if((fact * 10)%10 == 0){
-                yInt = (int) getY();
-                str = Integer.toString(yInt);
-            }else
-                str = Double.toString(getY());
             isX = false;
         }else{
-            function = "fact";
+            function = "fact(" + getX() + ")";
             for(int i = 2; i < getX() + 1; i++){
                 fact *= i;
             }
-
             setX(fact);
-
-            if((fact * 10)%10 == 0){
-                xInt = (int) getX();
-                str = Integer.toString(xInt);
-            }else
-                str = Double.toString(getX());
             isX = true;
         }
+        str = toInt(getAct());
         return str;
     }
     public String operationXInY(){
@@ -478,16 +468,15 @@ public class Nums{
                 setX(getZ());
         }
         if(isAct) {
-            function = "sin";
+            function = "sin(" + getY() + ")";
             setY(Math.sin(Math.toRadians(getY())));
-            str = Double.toString(getY());
             isX = false;
         }else{
-            function = "sin";
+            function = "sin(" + getX() + ")";
             setX(Math.sin(Math.toRadians(getX())));
-            str = Double.toString(getX());
             isX = true;
         }
+        str = toInt(getAct());
         return str;
     }
     public String operationCos(boolean isAct){
@@ -498,16 +487,15 @@ public class Nums{
                 setX(getZ());
         }
         if(isAct) {
-            function = "cos";
+            function = "cos(" + getY() + ")";
             setY(Math.cos(Math.toRadians(getY())));
-            str = Double.toString(getY());
             isX = false;
         }else{
-            function = "cos";
+            function = "cos(" + getX() + ")";
             setX(Math.cos(Math.toRadians(getX())));
-            str = Double.toString(getX());
             isX = true;
         }
+        str = toInt(getAct());
         return str;
     }
     public String operationTan(boolean isAct){
@@ -518,16 +506,15 @@ public class Nums{
                 setX(getZ());
         }
         if(isAct) {
-            function = "tan";
+            function = "tan(" + getY() + ")";
             setY(Math.tan(Math.toRadians(getY())));
-            str = Double.toString(getY());
             isX = false;
         }else{
-            function = "tan";
+            function = "tan(" + getX() + ")";
             setX(Math.tan(Math.toRadians(getX())));
-            str = Double.toString(getX());
             isX = true;
         }
+        str = toInt(getAct());
         return str;
     }
     public String operationCot(boolean isAct){
@@ -538,16 +525,15 @@ public class Nums{
                 setX(getZ());
         }
         if(isAct) {
-            function = "cot";
+            function = "cot(" + getY() + ")";
             setY(1/Math.tan(Math.toRadians(getY())));
-            str = Double.toString(getY());
             isX = false;
         }else{
-            function = "cot";
+            function = "cot(" + getX() + ")";
             setX(1/Math.tan(Math.toRadians(getX())));
-            str = Double.toString(getX());
             isX = true;
         }
+        str = toInt(getAct());
         return str;
     }
 
@@ -629,11 +615,25 @@ public class Nums{
         isCom = com;
     }
 
-    public void setHistoryItem(HistoryItem historyItem){
-        if(getX() != 0 && getY() != 0){
-            Operations.get().setItem(historyItem);
+    private String toInt(boolean isAct){
+        if(isAct){
+            if((getY()*10) % 10 == 0){
+                yInt = (int) getY();
+                str = Integer.toString(yInt);
+            }else{
+                str = Double.toString(getY());
+            }
+        }else{
+            if((getX()*10) % 10 == 0){
+                xInt = (int) getX();
+                str = Integer.toString(xInt);
+            }else{
+                str = Double.toString(getX());
+            }
         }
+        return str;
     }
+
 }
 
 

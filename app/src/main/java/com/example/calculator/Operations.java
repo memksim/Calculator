@@ -27,10 +27,6 @@ public  class Operations {
         return operations;
     }
 
-    public HistoryItem getItem(int index){
-        return operationsList.get(index);
-    }
-
     public List<HistoryItem> getOperations(){
         return operationsList;
     }
