@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mCalcTextView = (TextView)findViewById(R.id.action_text);
-        mCalcTextView.setText(button.print(button.getAct()));
+        mCalcTextView.setText(button.print());
 
 
         mButton_0 = (Button)findViewById(R.id.button_0);

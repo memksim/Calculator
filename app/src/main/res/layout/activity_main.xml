@@ -87,7 +87,7 @@
             />
         <Button
             android:id="@+id/button_clear_all"
-            android:text="CLS"
+            android:text="@string/clear_all"
             android:background="@drawable/operation_button"
             style="@style/Button_style"
             android:layout_width="0dp"

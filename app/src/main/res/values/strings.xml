@@ -8,5 +8,6 @@
     <string name="square">x²</string>
     <string name="x_in_y">xʸ</string>
     <string name="title_activity_history">HistoryActivity</string>
+    <string name="clear_all">C</string>
 
 </resources>

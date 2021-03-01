@@ -8,7 +8,7 @@ public class Nums{
     private double y = 0;
     private String str;
     private Integer xInt, yInt;
-    private int num = 0;
+    private int n = 1;
     private boolean isAct = false;
     private int counter = 0;
 
@@ -24,21 +24,12 @@ public class Nums{
     public String numButton(final boolean isAct, int num, final boolean isCom) {
         if (isAct) {
             setY(10 * getY() + num);
-            if ((getY() * 10) % 10 == 0) {
-                yInt = (int) getY();
-                str = Integer.toString(yInt);
-            } else {
-                str = Double.toString(getY());
-            }
+            str = toInt(getAct());
         } else {
             setX(10 * getX() + num);
-            if ((getX() * 10) % 10 == 0) {
-                xInt = (int) getX();
-                str = Integer.toString(xInt);
-            } else {
-                str = Double.toString(getX());
-            }
+            str = toInt(getAct());
         }
+
 
         if(isCom){
             if(isAct){
@@ -55,23 +46,8 @@ public class Nums{
         return str;
     }
 
-    public String print(boolean isAct){
-        if(isAct){
-            if((getY() * 10) % 10 == 0){
-                yInt = (int) getY();
-                str = Integer.toString(yInt);
-            }else{
-                str = Double.toString(getY());
-            }
-        }else{
-            if((getY() * 10) % 10 == 0){
-                xInt = (int) getX();
-                str = Integer.toString(xInt);
-            }else{
-                str = Double.toString(getX());
-            }
-        }
-        return str;
+    public String print(){
+        return toInt(getAct());
     }
 
     public void operationPlus(){
@@ -138,11 +114,7 @@ public class Nums{
         }
 
         if(getPlus() == 1){
-            if(!function.equals("-")){
-                historyItem.setAction(getX(), "+", getY(), function, isX);
-            }else {
-                historyItem.setAction(getX(), "+", getY(), function, isX);
-            }
+            historyItem.setAction(getX(), "+", getY(), function, isX);
             setX(getX() + getY());
         }
         if(getSubtraction() == 1){
@@ -177,24 +149,14 @@ public class Nums{
             historyItem.setAction(getX(), "", getY(), function, isX);
         }
 
-
-        if((getX()*10) % 10 == 0){
-            xInt = (int) getX();
-            str = Integer.toString(xInt);
-        }else{
-            str = Double.toString(getX());
-        }
-
         function = "-";
         isX = true;
         setCom(false);
         setAct(false);
         setY(0);
+        n = 1;
 
-        setCounter(str.length());
-        if(getCounter() > 10 ){
-            str = str.substring(0,10);
-        }
+        str = toInt(getAct());
 
         historyItem.setResult(String.valueOf(getX()));
         Operations.get().setItem(historyItem);
@@ -211,15 +173,11 @@ public class Nums{
 
         if(isAct){
             setY(getX() * (getY() / 100.0));
-            str = Double.toString(getY());
         }else{
             setX(getX() / 100.0);
-            str = Double.toString(getX());
         }
-        setCounter(str.length());
-        if(getCounter() > 9){
-            return str.substring(0, 8);
-        }
+
+        str = toInt(getAct());
         return str;
     }
     public String operationPlusMinus(boolean isAct){
@@ -232,22 +190,10 @@ public class Nums{
 
         if(isAct){
             setY(-1 * getY());
-            if((getX()*10) % 10 == 0){
-                yInt = (int) getY();
-                str = Integer.toString(yInt);
-            }else{
-                str = Double.toString(getY());
-            }
         }else{
             setX(-1 * getX());
-            if((getX()*10) % 10 == 0){
-                xInt = (int) getX();
-                str = Integer.toString(xInt);
-            }else{
-                str = Double.toString(getX());
-            }
         }
-        setCounter(str.length());
+        str = toInt(getAct());
         return str;
     }
     public String operationCoup(boolean isAct){
@@ -260,32 +206,12 @@ public class Nums{
 
         if (isAct){
             setY(1/getY());
-            if((getY()*10)%10 == 0){
-                yInt = (int) getY();
-                str = Integer.toString(yInt);
-            }else{
-                str = Double.toString(getY());
-            }
+            str = toInt(getAct());
         }else{
             setX(1/getX());
-            if((getX()*10)%10 == 0){
-                xInt = (int) getX();
-                str = Integer.toString(xInt);
-            }else{
-                str = Double.toString(getX());
-            }
+            str = toInt(getAct());
         }
 
-        setCounter(str.length());
-        if(getCounter()>9){
-            setCounter(6);
-            str = str.substring(0,7);
-            if(isAct){
-                setY(Double.valueOf(str));
-            }else{
-                setX(Double.valueOf(str));
-            }
-        }
         return str;
     }
     public String operationSquare(boolean isAct){
@@ -298,33 +224,11 @@ public class Nums{
 
         if(isAct){
             setY(getY()*getY());
-            if((getY()*10)%10 == 0){
-                yInt = (int) getY();
-                str = Integer.toString(yInt);
-            }else{
-                str = Double.toString(getY());
-            }
+            str = toInt(getAct());
         }else{
             setX(getX()*getX());
-            if((getX()*10)%10 == 0){
-                xInt = (int) getX();
-                str = Integer.toString(xInt);
-            }else{
-                str = Double.toString(getX());
-            }
+            str = toInt(getAct());
         }
-
-        setCounter(str.length());
-        if(getCounter()>9){
-            setCounter(6);
-            str = str.substring(0,7);
-            if(isAct){
-                setY(Double.valueOf(str));
-            }else{
-                setX(Double.valueOf(str));
-            }
-        }
-
 
         return str;
     }
@@ -338,31 +242,10 @@ public class Nums{
 
         if(isAct){
             setY(Math.sqrt(getY()));
-            if((getY()*10)%10 == 0){
-                yInt = (int) getY();
-                str = Integer.toString(yInt);
-            }else{
-                str = Double.toString(getY());
-            }
+            str = toInt(getAct());
         }else{
             setX(Math.sqrt(getX()));
-            if((getX()*10) % 10 == 0){
-                xInt = (int) getX();
-                str = Integer.toString(xInt);
-            }else{
-                str = Double.toString(getX());
-            }
-        }
-
-        setCounter(str.length());
-        if(getCounter()>9){
-            setCounter(6);
-            str = str.substring(0,7);
-            if(isAct){
-                setY(Double.valueOf(str));
-            }else{
-                setX(Double.valueOf(str));
-            }
+            str = toInt(getAct());
         }
 
         return str;
@@ -381,6 +264,7 @@ public class Nums{
         setDivision(0);
         setZ(0);
         setAct(false);
+        n = 1;
         return "0";
     }
     public String operationClearLastSymbol(boolean isAct){
@@ -616,21 +500,29 @@ public class Nums{
     }
 
     private String toInt(boolean isAct){
+
         if(isAct){
-            if((getY()*10) % 10 == 0){
-                yInt = (int) getY();
-                str = Integer.toString(yInt);
-            }else{
-                str = Double.toString(getY());
+            for(double i = 1; i < 8; i++){
+                if((getY() * Math.pow(10, i)) % 10 != 0){
+                    str = String.valueOf(getY());
+                    if(str.length() > 10)str = str.substring(0, 10);
+                    return str;
+                }
             }
+            yInt = (int) getY();
+            str = Integer.toString(yInt);
         }else{
-            if((getX()*10) % 10 == 0){
-                xInt = (int) getX();
-                str = Integer.toString(xInt);
-            }else{
-                str = Double.toString(getX());
+            for(double i = 1; i < 8; i++){
+                if((getX() * Math.pow(10, i)) % 10 != 0){
+                    str = String.valueOf(getX());
+                    if(str.length() > 10)str = str.substring(0, 10);
+                    return str;
+                }
             }
+            xInt = (int) getX();
+            str = Integer.toString(xInt);
         }
+
         return str;
     }
 

@@ -48,7 +48,7 @@
             android:layout_weight="1"/>
         <Button
             android:id="@+id/button_clear_all"
-            android:text="ca"
+            android:text="@string/clear_all"
             android:background="@drawable/operation_button_landscape"
             style="@style/LandSpace_Button_style"
             android:layout_width="0dp"
