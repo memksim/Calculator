@@ -8,7 +8,6 @@ public class Nums{
     private double y = 0;
     private String str;
     private Integer xInt, yInt;
-    private int n = 1;
     private boolean isAct = false;
     private int counter = 0;
 
@@ -154,7 +153,6 @@ public class Nums{
         setCom(false);
         setAct(false);
         setY(0);
-        n = 1;
 
         str = toInt(getAct());
 
@@ -264,7 +262,6 @@ public class Nums{
         setDivision(0);
         setZ(0);
         setAct(false);
-        n = 1;
         return "0";
     }
     public String operationClearLastSymbol(boolean isAct){
@@ -274,31 +271,47 @@ public class Nums{
             }else
                 setX(getZ());
         }
-        if(isAct){
-
-            str = Double.toString(getY()).substring(0, str.length() - 1);
+        if(isAct && !isCom){
+            str = String.valueOf(getY());
+            if(str.length() == 3){
+                str = "0";
+            }else{
+                str = str.substring(0, str.length()-3);
+            }
             setY(Double.valueOf(str));
-            if ((getY() * 10) % 10 == 0) {
-                yInt = (int) getY();
-                str = Integer.toString(yInt);
-            } else {
-                str = Double.toString(getY());
-            }
-
+            //str = toInt(getAct());
         }else{
-            str = Double.toString(getX()).substring(0, str.length() - 1);
-            setX(Double.valueOf(str));
-            if ((getX() * 10) % 10 == 0) {
-                xInt = (int) getX();
-                str = Integer.toString(xInt);
-            } else {
-                str = Double.toString(getX());
+            str = String.valueOf(getX());
+            if(str.length() == 3){
+                str = "0";
+            }else{
+                str = str.substring(0, str.length()-3);
             }
-
-
+            setX(Double.valueOf(str));
+            //str = toInt(getAct());
         }
 
-        setCounter(str.length());
+        if(isCom){
+            if (isAct){
+                str = String.valueOf(getY());
+                if(str.length() == 1){
+                    str = "0";
+                }else{
+                    str = str.substring(0, str.length()-1);
+                }
+                setY(Double.valueOf(str));
+            }else{
+                str = String.valueOf(getX());
+                if(str.length() == 1){
+                    str = "0";
+                }else{
+                    str = str.substring(0, str.length()-1);
+                }
+                setX(Double.valueOf(str));
+            }
+        }
+
+
         return str;
     }
 
@@ -527,5 +540,4 @@ public class Nums{
     }
 
 }
-
 
