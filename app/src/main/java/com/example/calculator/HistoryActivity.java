@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Menu;
 import android.view.View;
 
 import java.util.List;
@@ -22,6 +23,10 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("History");
+        }
 
         mRecyclerView =(RecyclerView)findViewById(R.id.history_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
